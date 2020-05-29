@@ -8,8 +8,8 @@ module.exports = {
         {
           title: "Tester's page",
           description: "Don't get testy...",
-          backgroundColor: "#aaaaaa",
-          color: "#111111",
+          backgroundColor: "#660000",
+          color: "#FF6666",
           userId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -17,8 +17,8 @@ module.exports = {
         {
           title: "Dummy's page",
           description: "Dumb asshole",
-          backgroundColor: "#bbbbbb",
-          color: "#222222",
+          backgroundColor: "#006600",
+          color: "#66FF66",
           userId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),

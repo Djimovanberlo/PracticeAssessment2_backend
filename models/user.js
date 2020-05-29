@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   user.associate = function (models) {
-    user.hasOne(models.homepage);
+    // user.hasOne(models.homepage);
   };
   return user;
 };
