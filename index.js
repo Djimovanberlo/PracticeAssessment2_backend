@@ -159,3 +159,5 @@ const { PORT } = require("./config/constants");
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
+
+app.use("/homepage", homePageRouter);
