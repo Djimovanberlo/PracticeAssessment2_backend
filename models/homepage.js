@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   homepage.associate = function (models) {
-    homepage.hasOne(models.user);
+    homepage.belongsTo(models.user);
     homepage.hasMany(models.story);
   };
   return homepage;

@@ -17,9 +17,9 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   const pageId = req.params.id;
-  console.log("HALLO", pageId);
+  // console.log("HALLO", pageId);
   try {
-    console.log("ok hoi");
+    // console.log("ok hoi");
     const onePage = await Homepage.findByPk(pageId, {
       include: [Story],
     });

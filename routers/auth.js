@@ -3,6 +3,7 @@ const { Router } = require("express");
 const { toJWT } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const User = require("../models/").user;
+const HomePage = require("../models/").homepage;
 const { SALT_ROUNDS } = require("../config/constants");
 
 const router = new Router();
@@ -10,6 +11,7 @@ const router = new Router();
 router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    // console.log("test1", req.body);
 
     if (!email || !password) {
       return res
@@ -18,10 +20,11 @@ router.post("/login", async (req, res, next) => {
     }
 
     const user = await User.findOne({ where: { email } });
+    console.log("test2", user);
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(400).send({
-        message: "User with that email not found or password incorrect"
+        message: "User with that email not found or password incorrect",
       });
     }
 
@@ -44,14 +47,32 @@ router.post("/signup", async (req, res) => {
     const newUser = await User.create({
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
-      name
+      name,
     });
 
     delete newUser.dataValues["password"]; // don't send back the password hash
 
     const token = toJWT({ userId: newUser.id });
+    console.log(token);
 
-    res.status(201).json({ token, ...newUser.dataValues });
+    console.log("creationtest");
+
+    const homePage = await HomePage.create({
+      title: `${newUser.name}'s page`,
+      description: null,
+      backgroundColor: "#ffffff",
+      color: "#000000",
+      userId: newUser.id,
+    });
+
+    res.status(201).json({
+      token,
+      ...newUser.dataValues,
+      homePage: {
+        ...homePage.dataValues,
+        stories: [],
+      },
+    });
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return res
