@@ -55,7 +55,7 @@ router.post("/signup", async (req, res) => {
     const token = toJWT({ userId: newUser.id });
     console.log(token);
 
-    console.log("creationtest");
+    // console.log("creationtest");
 
     const homePage = await HomePage.create({
       title: `${newUser.name}'s page`,
@@ -89,6 +89,7 @@ router.post("/signup", async (req, res) => {
 // - checking if a token is (still) valid
 router.get("/me", authMiddleware, async (req, res) => {
   // don't send back the password hash
+  const homePage = await HomePage.find();
   delete req.user.dataValues["password"];
   res.status(200).send({ ...req.user.dataValues });
 });

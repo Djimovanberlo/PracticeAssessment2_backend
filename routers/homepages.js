@@ -29,4 +29,20 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.post("/:id/stories", async (req, res) => {
+  const homepage = await Homepage.findByPk(req.params.id);
+  const { name, imageUrl, content } = req.body;
+  console.log("3w3w3w3w3w3w3", homepage);
+  console.log("4w4w4w4w4", req.body);
+  const story = await Story.create({
+    name,
+    imageUrl,
+    content,
+    homepageId: homepage.id,
+  });
+  console.log("44444444?", story);
+
+  return res.status(201).send(story);
+});
+
 module.exports = router;
